@@ -1,14 +1,13 @@
 import { Layout } from "antd";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
 import "./comp.css";
 import axios from "axios";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 
-import Categories from "./category";
 const { Header } = Layout;
-// `https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef`
+
 function Navbar() {
   const [category, setCategory] = useState([]);
 
@@ -17,7 +16,7 @@ function Navbar() {
       const res = await axios.get(
         `https://www.themealdb.com/api/json/v1/1/categories.php`
       );
-      console.log(res);
+
       setCategory(res.data.categories[0]);
     } catch (error) {
       console.error(error);
@@ -26,7 +25,6 @@ function Navbar() {
   useEffect(() => {
     getCategories();
   }, []);
-  // let { strCategory } = useParams();
 
   const navigate = useNavigate();
   return (

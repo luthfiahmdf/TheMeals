@@ -18,7 +18,7 @@ function Details() {
       const res = await axios.get(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i= ${id}`
       );
-      console.log(res);
+      // console.log(res);
       setMeals(res.data.meals[0]);
     } catch (error) {
       console.error(error);
@@ -27,19 +27,6 @@ function Details() {
   useEffect(() => {
     data();
   }, []);
-  // Modals
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <Layout className="layout">
@@ -80,17 +67,6 @@ function Details() {
                   <li>{meals.strIngredient12}</li>
                   <li>{meals.strIngredient13}</li>
                 </ul>
-                <Button type="primary" onClick={showModal}>
-                  Shows Instruction
-                </Button>
-                <Modal
-                  title="Instruction"
-                  open={isModalOpen}
-                  onOk={handleOk}
-                  onCancel={handleCancel}
-                >
-                  <p>{meals.strInstructions}</p>
-                </Modal>
               </div>
             </div>
           </div>
@@ -102,7 +78,7 @@ function Details() {
           textAlign: "center",
         }}
       >
-        Ini CopyRight
+        Ini Copyright
       </Footer>
     </Layout>
   );
