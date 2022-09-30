@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button, Modal } from "antd";
 import { Image } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "./nav";
@@ -8,10 +8,9 @@ import "./comp.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 function Details() {
-  const navigate = useNavigate();
   let { id } = useParams();
   const [meals, setMeals] = useState([]);
   const data = async () => {
@@ -28,6 +27,19 @@ function Details() {
   useEffect(() => {
     data();
   }, []);
+  // Modals
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Layout className="layout">
@@ -68,6 +80,17 @@ function Details() {
                   <li>{meals.strIngredient12}</li>
                   <li>{meals.strIngredient13}</li>
                 </ul>
+                <Button type="primary" onClick={showModal}>
+                  Shows Instruction
+                </Button>
+                <Modal
+                  title="Instruction"
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                >
+                  <p>{meals.strInstructions}</p>
+                </Modal>
               </div>
             </div>
           </div>

@@ -1,8 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import axios from "axios";
 
 function Search() {
   return (

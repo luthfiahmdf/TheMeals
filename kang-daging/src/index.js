@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Details from "./components/detail";
+import Categories from "./components/category";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +15,7 @@ root.render(
         <Route>
           <Route path="/" element={<App />} />
           <Route path=":id" element={<Details />} />
+          <Route path="category/:category" element={<Categories />} />
         </Route>
       </Routes>
     </BrowserRouter>

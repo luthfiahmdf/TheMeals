@@ -1,21 +1,25 @@
-import Navbar from "./components/nav";
 import { Card, Layout } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Search from "./components/search";
+import Search from "./search";
+
+import Navbar from "./nav";
 
 const { Content } = Layout;
 
-const url = "https://www.themealdb.com/api/json/v1/1/search.php?f=b";
 const { Meta } = Card;
-function App() {
+function Categories() {
+  let { category } = useParams();
   const navigate = useNavigate();
   const [meals, setMeals] = useState([]);
+
   const loadData = async () => {
     try {
-      const res = await axios.get(url);
+      const res = await axios.get(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category} `
+      );
       console.log(res);
       setMeals(res.data.meals);
     } catch (error) {
@@ -25,23 +29,6 @@ function App() {
   useEffect(() => {
     loadData();
   }, []);
-  const showMeals = meals.map((item) => {
-    console.log(item);
-    return <li key={item.strMeal}>{item.strMeal}</li>;
-  });
-  const showImage = meals.map((item) => {
-    return (
-      <img key={item.strMealThumb} alt="img">
-        {item.strMealThumb}
-      </img>
-    );
-  });
-  const Id = meals.map((item) => {
-    return <p key={item.idMeal}>{item.idMeal}</p>;
-  });
-  const showCategory = meals.map((item) => {
-    return <p key={item.strCategory}>{item.strCategory}</p>;
-  });
 
   return (
     <Layout className="layout">
@@ -57,7 +44,7 @@ function App() {
               className="w-4/5"
               onClick={() => navigate(`/${item.idMeal}`)}
             >
-              <Meta title={item.strMeal} description={item.strCategory} />
+              <Meta title={item.strMeal} />
             </Card>
           ))}
       </Content>
@@ -65,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default Categories;
